@@ -1,11 +1,9 @@
 import unittest
 import pickle
+import numpy as np
 from math import pi
-from datetime import datetime
-import sys
-
-sys.set_int_max_str_digits = 10**1000000
-
+from copy import deepcopy
+from numpy.testing import assert_array_equal
 
 # str
 # int
@@ -15,24 +13,18 @@ sys.set_int_max_str_digits = 10**1000000
 # frozenset
 # range
 
-def function(lst: list):
+
+def function():
     pass
 
 class Class1():
     pass
-    
-class Class2():
-    x = 1
-    y = 2
 
-class Class3():
-    def classFunction():
-        pass
 
 class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
     
     def test_hash(self):
-        test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(100000**1000000/11), function([]), Class1(), Class2(), Class3(), range(10**100000)] #lägg in cases här
+        test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(1e1000), function([]), Class1(), Class2(), Class3(), range(10**10), bytes(5), function] #lägg in cases här
 
         for i, test_case in enumerate(test_cases):
             with self.subTest(msg=f'{test_case}', i=i):
@@ -49,18 +41,6 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
                 actual = hash(un_pickled)
                 self.assertEqual(expected, actual, f'{test_case}')
     
-    def class_test(self):
-        c = Class1()
-        c.x = 1
-        c.y = 2
-
-        expected = hash(c)
-
-        pickled = pickle.dumps(c)
-        un_pickled = pickle.loads(pickled)
-        
-        actual = hash(un_pickled)
-        self.assertEqual(expected, actual, f'class_test {c}')
     
     def test_object_in_list_permanence(self):
         lst = [1, "2", (3, 4), 5.6]
@@ -73,8 +53,6 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
             self.assertEqual(excpected, value, f'{lst[i]}')
 
             
-
-
     def test_list_in_list(self):
         pass
 
@@ -99,7 +77,33 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
         #https://discuss.python.org/t/pickle-original-data-size-is-greater-than-deserialized-one-using-pickle-5-protocol/23327
 
         #Någonting händer med "äganderätten" hos arrayer i numpy tydligen. Vet inte om det reflekteras på hashen men värt att kolla
-        pass
+        #LIKT FÖLJANDE:
+        # array = np.array([1, 2, 3] * 10000)
+
+        # packed_data = pkl.dumps(array)
+        # unpacked_data = pkl.loads(packed_data)
+
+        # array[0] = 1111111111111
+
+        # print(array)
+        # [1111111111111             2             3 ...             1             2
+        #             3]
+        # print(unpacked_data)
+        # [1 2 3 ... 1 2 3]
+
+        # print(sys.getsizeof(array))
+        # # 240112
+        # print(sys.getsizeof(unpacked_data))
+        # # 112
+        # print(all(np.equal(array, unpacked_data)))
+        # False
+        
+        array = np.array([1, 2, 3] * 10000)
+        packed_data = pickle.dumps(array)
+        unpacked_data = pickle.loads(packed_data)
+
+        assert_array_equal(array, unpacked_data, verbose=False)
+        self.assertEqual(array.flags.owndata, unpacked_data.flags.owndata)
 
 
     
@@ -107,3 +111,8 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
 
 if __name__ == '__main__':
     unittest.main()
+        # array = np.array([1, 2, 3] * 10000)
+        # packed_data = pickle.dumps(array)
+        # unpacked_data = pickle.loads(packed_data)
+
+        # print(f'ORGINAL:\n {array.flags}\n\n\nUNPACKED: \n{unpacked_data.flags}')
