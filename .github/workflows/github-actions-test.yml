@@ -9,6 +9,10 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - name: Commit changes
         env: 
           CI_COMMIT_MESSAGE: Removing Old Files
@@ -22,6 +26,10 @@ jobs:
           git rm -r Windows/
           git rm -r MacOs/
           git push
+      - uses: actions/checkout@v4
+      - name: List files in the repository after removal
+        run: |
+          ls ${{ github.workspace }}
   Pickle-Test-Action:
     strategy:
       fail-fast: false
