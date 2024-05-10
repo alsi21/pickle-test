@@ -1,7 +1,6 @@
 import pickle
 import sys
 import os
-import pandas as pd
 import platform
 
 operation_system = platform.system()
@@ -23,7 +22,7 @@ except:
     pass
 
 directory = f"{operation_system}/{python_version}"
-try:
+try:    
     os.mkdir(directory) 
 except:
     pass
