@@ -5,8 +5,8 @@ on:
   - pull_request
 jobs:
   Pickle-GitHub-Actions:
-    if: always()
     strategy:
+      fail-fast: false
       matrix:
         os: [ 'ubuntu-latest', 'windows-latest' ]
         python-version: [ '3.10', '3.11' ]
