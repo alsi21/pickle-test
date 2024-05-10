@@ -4,6 +4,8 @@ import os
 import platform
 
 operation_system = platform.system()
+if operation_system == "Darwin":
+    operation_system = "MacOS"
 python_version = sys.version.split()[0]
 
 print(operation_system)
