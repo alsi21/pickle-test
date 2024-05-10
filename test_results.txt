@@ -1,0 +1,36 @@
+test_hash (__main__.test_pickle_datatype.test_hash) ... 
+  test_hash (__main__.test_pickle_datatype.test_hash) [nan] (i=15) ... FAIL
+  test_hash (__main__.test_pickle_datatype.test_hash) [<__main__.Class1 object at 0x000002B6FF9D9010>] (i=19) ... FAIL
+test_list_equivalence (__main__.test_pickle_datatype.test_list_equivalence) ... ok
+test_nan_equivalent (__main__.test_pickle_datatype.test_nan_equivalent) ... ok
+test_numpy_array (__main__.test_pickle_datatype.test_numpy_array) ... FAIL
+test_object_in_list_permanence (__main__.test_pickle_datatype.test_object_in_list_permanence) ... ok
+
+======================================================================
+FAIL: test_hash (__main__.test_pickle_datatype.test_hash) [nan] (i=15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "c:\Users\calib\OneDrive\Desktop\Plugg\Programmering\MjukvaruTestning\Final assignment\pickle-test\MainTest.py", line 43, in test_hash
+    self.assertEqual(expected, actual, f'{test_case}')
+AssertionError: 186561916885 != 186561916891 : nan
+
+======================================================================
+FAIL: test_hash (__main__.test_pickle_datatype.test_hash) [<__main__.Class1 object at 0x000002B6FF9D9010>] (i=19)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "c:\Users\calib\OneDrive\Desktop\Plugg\Programmering\MjukvaruTestning\Final assignment\pickle-test\MainTest.py", line 43, in test_hash
+    self.assertEqual(expected, actual, f'{test_case}')
+AssertionError: 186562238721 != 186562158853 : <__main__.Class1 object at 0x000002B6FF9D9010>
+
+======================================================================
+FAIL: test_numpy_array (__main__.test_pickle_datatype.test_numpy_array)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "c:\Users\calib\OneDrive\Desktop\Plugg\Programmering\MjukvaruTestning\Final assignment\pickle-test\MainTest.py", line 116, in test_numpy_array
+    self.assertEqual(array.flags.owndata, unpacked_data.flags.owndata)
+AssertionError: True != False
+
+----------------------------------------------------------------------
+Ran 5 tests in 7.744s
+
+FAILED (failures=3)

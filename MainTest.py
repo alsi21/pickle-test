@@ -4,6 +4,8 @@ import numpy as np
 from math import pi
 from copy import deepcopy
 from numpy.testing import assert_array_equal
+import random
+import sys
 
 # str
 # int
@@ -21,10 +23,10 @@ class Class1():
     pass
 
 
-class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
+class test_pickle_datatype(unittest.TestCase): #immutable går inte att hasha
     
     def test_hash(self):
-        test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(1e1000), function([]), Class1(), Class2(), Class3(), range(10**10), bytes(5), function] #lägg in cases här
+        test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(1e1000), function(), Class1(), range(10**10), bytes(5), function] #lägg in cases här
 
         for i, test_case in enumerate(test_cases):
             with self.subTest(msg=f'{test_case}', i=i):
@@ -53,8 +55,17 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
             self.assertEqual(excpected, value, f'{lst[i]}')
 
             
-    def test_list_in_list(self):
-        pass
+    def test_list_equivalence(self):
+        test_case_dict = {"simple list" : [1, "2", (3, 4), 5.6], "list with list" : [[], [[], []]], "really big list": random.sample(range(1, 100000000), 10000000)}
+        # l = [1, 2, 3]
+        # l.append(l)
+        # test_case_dict["list containing itself"] = l
+
+        for key, value in test_case_dict.items():
+            pickled_list = pickle.dumps(value)
+            unpickled = pickle.loads(pickled_list)
+            self.assertEqual(value, unpickled, key)
+
 
     def test_nan_equivalent(self):
         # https://discuss.python.org/t/does-pickle-always-give-the-same-bytes/7468/4
@@ -110,9 +121,11 @@ class test_pickle_datatype(unittest.TestCase): #immutable går inte att hashea
     
 
 if __name__ == '__main__':
-    unittest.main()
-        # array = np.array([1, 2, 3] * 10000)
-        # packed_data = pickle.dumps(array)
-        # unpacked_data = pickle.loads(packed_data)
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(test_pickle_datatype)
 
-        # print(f'ORGINAL:\n {array.flags}\n\n\nUNPACKED: \n{unpacked_data.flags}')
+    # Create a test runner and specify the output file
+    with open("test_results.txt", "w") as f:
+        test_runner = unittest.TextTestRunner(stream=f, verbosity=2)
+        
+        # Run the test suite with the specified test runner
+        result = test_runner.run(test_suite)
