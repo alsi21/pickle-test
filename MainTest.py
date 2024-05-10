@@ -26,7 +26,12 @@ class Class1():
 class test_pickle_datatype(unittest.TestCase): #immutable går inte att hasha
     
     def test_hash(self):
+<<<<<<< HEAD
         test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(1e1000), function(), Class1(), range(10**10), bytes(5), function] #lägg in cases här
+=======
+        test_cases = [float(10/11), float(pi), 'Hello World', 'Test\n\t\r', f"", r"", b"", (1, 2), ((()),(),((()),())), 1, False, frozenset([1, 2, 3, 4]), range(8), complex(5, 3), None, float('nan'), float('inf'), float(1e1000), function(), range(10**10), bytes(5), function] #lägg in cases här
+        failures = [Class1()]
+>>>>>>> 1f3cf99a97416aea70afd6a08f92bf50962fa857
 
         for i, test_case in enumerate(test_cases):
             with self.subTest(msg=f'{test_case}', i=i):
