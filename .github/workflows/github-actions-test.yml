@@ -8,6 +8,9 @@ jobs:
     runs-on: 'ubuntu-latest'
     permissions:
       contents: write
+    concurrency:
+      group: cleaner
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - name: List files in the repository
@@ -22,9 +25,9 @@ jobs:
           git config --global user.email "username@users.noreply.github.com"
           git fetch
           git pull --ff
-          git rm -r -n Linux/ || git rm -r Linux/
-          git rm -r -n Windows/ || git rm -r Windows/
-          git rm -r -n MacOs/ || git rm -r MacOs/
+          git rm -r --ignore-unmatch Linux/
+          git rm -r --ignore-unmatch Windows/
+          git rm -r --ignore-unmatch MacOs/
           git push
       - uses: actions/checkout@v4
       - name: List files in the repository after removal
