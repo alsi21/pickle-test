@@ -15,6 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     concurrency:
       group: group
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
