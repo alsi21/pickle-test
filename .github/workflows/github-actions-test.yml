@@ -44,4 +44,4 @@ jobs:
           git diff-index --quiet HEAD || git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git fetch
           git pull
-          git push
+          git push origin/main
