@@ -1,2 +1,0 @@
-Python: 3.9.19; Pickle: 4.0; Highest protocol: 5.
-Python: 2.7.18; Pickle: 2.0; Highest protocol: 2.

@@ -14,7 +14,7 @@ print(python_version)
 test_case_dict = {"int": 3786587, "float": float(10/11), "float_nan": float('nan'), "float_inf": float('inf'), "complex": complex(5,3), 
                   "string": "test\n\t\r", "f_string": f"fstring", "r_string": r"rstring", "b_string": b"bstring",
                   "tuple": (1, (2)), "frozenset": frozenset([1,2,3,4]), "range": range(8), 
-                  "bytes": bytes(5), "False": False, "None": None}
+                  "bytes": bytes(5), "False": False, "None": None, "list": [1, "2", True, ((4, 5), 6)], "list in list": [[], [[]]]}
 
 
 directory = f"{operation_system}"
@@ -31,4 +31,4 @@ except:
 
 for key, value in test_case_dict.items():
     with open(f'{operation_system}/{python_version}/{key}.pkl','wb') as p_file:
-        pickle.dump(value, p_file)
+        pickle.dump(value, p_file, protocol=5)
