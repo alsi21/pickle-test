@@ -20,17 +20,17 @@ jobs:
           ls ${{ github.workspace }}
       - name: Commit changes
         env:
-          CI_COMMIT_MESSAGE: Old File Removal
-          CI_COMMIT_AUTHOR: File Remover
+          CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+          CI_COMMIT_AUTHOR: Continuous Integration
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "username@users.noreply.github.com"
+          git fetch
+          git pull --ff
           git rm -rf --ignore-unmatch --cached Pickles/
           git rm -rf --ignore-unmatch --cached error_dict.txt
           git add -A
-          git diff-index --quiet HEAD || git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git fetch
-          git pull --ff
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push
       - uses: actions/checkout@v4
       - name: List files in the repository after removal
