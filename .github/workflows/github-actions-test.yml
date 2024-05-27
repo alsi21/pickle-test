@@ -30,7 +30,6 @@ jobs:
           git rm -rf --ignore-unmatch --cached Pickles/
           git rm -rf --ignore-unmatch --cached error_dict.txt
           git add -A
-          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push
       - uses: actions/checkout@v4
       - name: List files in the repository after removal
