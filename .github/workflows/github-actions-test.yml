@@ -81,7 +81,7 @@ jobs:
   #         git push
           
   Compare-Pickles:
-    needs: Generate-Pickles
+    # needs: Generate-Pickles
     strategy:
       fail-fast: false
       max-parallel: 1
