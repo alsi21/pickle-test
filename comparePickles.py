@@ -40,7 +40,10 @@ for test in test_case_dict:
 
 master = {}
 for (dirpath, dirnames, filenames) in os.walk(local_dir):
-    dirpath_list = dirpath.split("\\")
+    if operation_system == "Windows":
+        dirpath_list = dirpath.split("\\")
+    else:
+        dirpath_list = dirpath.split("/")
     print(dirpath)
     if len(dirpath_list) < 2:
         continue
