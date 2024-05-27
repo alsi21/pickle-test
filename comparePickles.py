@@ -133,9 +133,15 @@ if __name__ == '__main__':
     # with open("log_dump.txt", "w") as f:
     test_runner = unittest.TextTestRunner()
 
-    test_runner.run(test_suite)
+    #test_runner.run(test_suite)
+    print('Master')
+    print(master)
+    print('My...')
+    print(my_unpacked)
+    print(my_binary)
+    print(my_obj_hash)
 
-
+    print('Errors')
     print(error_dict)
     with open('error_dict.txt', 'w') as f: 
         f.write(json.dumps(error_dict))
