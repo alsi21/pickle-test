@@ -4,8 +4,9 @@ import sys
 import os
 import platform
 import json
+from pathlib import Path
 
-local_dir = "Pickles"
+local_dir = "pickle-test/Pickles"
 operation_system = platform.system()
 if operation_system == "Darwin":
     operation_system = "MacOS"
@@ -13,7 +14,8 @@ python_version = sys.version.split()[0]
 
 error_dict = {}
 
-my_path = f"{local_dir}/{operation_system}/{python_version}"
+my_path = Path(f"{local_dir}/{operation_system}/{python_version}")
+print(my_path)
 
 test_case_dict = {"int": 3786587, "float": float(10/11), "float_nan": float('nan'), "float_inf": float('inf'), "complex": complex(5,3), 
                   "string": "test\n\t\r", "f_string": f"fstring", "r_string": r"rstring", "b_string": b"bstring",
@@ -25,11 +27,11 @@ my_unpacked = {}
 my_binary = {}
 my_obj_hash = {}
 for test in test_case_dict:
-    with open(f"{my_path}/{test}.pkl", "rb") as f:
+    with open(Path(f"{my_path}/{test}.pkl"), "rb") as f:
         my_unpacked[test] = pickle.load(f)
-    with open(f"{my_path}/{test}.pkl", "rb") as f:
+    with open(Path(f"{my_path}/{test}.pkl"), "rb") as f:
         my_binary[test] = hash(f.read())
-    with open(f"{my_path}/{test}.pkl", "rb") as f:
+    with open(Path(f"{my_path}/{test}.pkl"), "rb") as f:
         try:
             my_obj_hash[test] = hash(pickle.load(f))
         except:
@@ -50,11 +52,11 @@ for (dirpath, dirnames, filenames) in os.walk(local_dir):
     other_binary = {}
     other_obj_hash = {}
     for test in test_case_dict:
-        with open(f"{dirpath}/{test}.pkl", "rb") as f:
+        with open(Path(f"{dirpath}/{test}.pkl"), "rb") as f:
             other_unpacked[test] = pickle.load(f)
-        with open(f"{dirpath}/{test}.pkl", "rb") as f:
+        with open(Path(f"{dirpath}/{test}.pkl"), "rb") as f:
             other_binary[test] = hash(f.read())
-        with open(f"{dirpath}/{test}.pkl", "rb") as f:
+        with open(Path(f"{dirpath}/{test}.pkl"), "rb") as f:
             try:
                 other_obj_hash[test] = hash(pickle.load(f))
             except:
@@ -133,5 +135,7 @@ if __name__ == '__main__':
 
     test_runner.run(test_suite)
 
+
+    print(error_dict)
     with open('error_dict.txt', 'w') as f: 
         f.write(json.dumps(error_dict))
