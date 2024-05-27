@@ -6,7 +6,7 @@ import platform
 import json
 from pathlib import Path
 
-local_dir = "pickle-test/Pickles"
+local_dir = "/Pickles"
 operation_system = platform.system()
 if operation_system == "Darwin":
     operation_system = "MacOS"
