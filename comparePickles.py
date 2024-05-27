@@ -41,6 +41,7 @@ for test in test_case_dict:
 master = {}
 for (dirpath, dirnames, filenames) in os.walk(local_dir):
     dirpath_list = dirpath.split("\\")
+    print(dirpath)
     if len(dirpath_list) < 2:
         continue
     if len(filenames) == 0:
