@@ -137,7 +137,7 @@ if __name__ == '__main__':
     # with open("log_dump.txt", "w") as f:
     test_runner = unittest.TextTestRunner()
 
-    #test_runner.run(test_suite)
+    test_runner.run(test_suite)
     print('Master')
     print(master)
     print('My...')
