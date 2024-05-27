@@ -5,7 +5,7 @@ import os
 import platform
 import json
 
-local_dir = "pickle-test\Pickles"
+local_dir = "Pickles"
 operation_system = platform.system()
 if operation_system == "Darwin":
     operation_system = "MacOS"
