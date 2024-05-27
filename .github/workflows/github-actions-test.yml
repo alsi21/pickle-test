@@ -30,7 +30,7 @@ jobs:
           git rm -rf --ignore-unmatch --cached Pickles/
           git rm -rf --ignore-unmatch --cached error_dict.txt
           git add -A
-          git push
+          git push --force -u origin main
       - uses: actions/checkout@v4
       - name: List files in the repository after removal
         run: |
