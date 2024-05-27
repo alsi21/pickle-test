@@ -40,7 +40,7 @@ for test in test_case_dict:
 
 master = {}
 for (dirpath, dirnames, filenames) in os.walk(local_dir):
-    dirpath_list = Path(dirpath).split("\\")
+    dirpath_list = dirpath.split("\\")
     print(dirpath)
     if len(dirpath_list) < 2:
         continue
@@ -48,7 +48,7 @@ for (dirpath, dirnames, filenames) in os.walk(local_dir):
         continue
     print(dirpath)
     other_os = dirpath_list[-2]
-    other_python_version = Path(dirpath).split("\\")[-1]
+    other_python_version = dirpath_list[-1]
     other_unpacked = {}
     other_binary = {}
     other_obj_hash = {}
