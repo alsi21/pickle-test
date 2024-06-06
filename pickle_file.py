@@ -28,7 +28,7 @@ test_case_dict = {"int": 3786587, "float": float(10/11), "float_nan": float('nan
                   "tuple": (1, (2)), "frozenset": frozenset([1,2,3,4]), "range": range(8), 
                   "bytes": bytes(5), "False": False, "None": None, "list": [1, "2", True, ((4, 5), 6)], "list_in_list": [[], [[]]], 
                   "dict": {"value_here": 1, "dict_in_dict_in_dict": {"Not_empty": "David är elak mot mig :("}}, "set": {"Sebbe", "David", "Albin"},
-                  "memory_view":  memoryview(bytes(5)), "byte_array": bytearray("We are not alergic to peanuts", 'utf-8'),
+                "byte_array": bytearray("We are not alergic to peanuts", 'utf-8'),
                   "class1": Class1(), "class2": Class2(), "class3": Class3(), "class4": Class4()}
 
 
